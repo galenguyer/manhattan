@@ -1,12 +1,14 @@
 use dotenv;
-use reqwest::blocking;
+use reqwest::blocking::Client;
 use serde_json::Value;
 use std::env;
 
 fn main() {
     dotenv::dotenv().ok();
-    let _keycloak_token = env::var("KEYCLOAK_TOKEN").expect("KEYCLOAK_TOKEN not set");
-    let drink_response = blocking::get("https://drink.csh.rit.edu/drinks").unwrap();
+    let keycloak_token = env::var("KEYCLOAK_TOKEN").expect("KEYCLOAK_TOKEN not set");
+
+    let client = Client::new();
+    let drink_response = client.get("https://drink.csh.rit.edu/drinks").bearer_auth(keycloak_token).send().unwrap();
 
     if drink_response.status().is_success() {
     } else {
