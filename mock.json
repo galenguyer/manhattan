@@ -1,0 +1,402 @@
+{
+  "machines": [
+    {
+      "display_name": "Big Drink",
+      "id": 1,
+      "is_online": true,
+      "name": "bigdrink",
+      "slots": [
+        {
+          "active": true,
+          "count": null,
+          "empty": true,
+          "item": {
+            "id": 37,
+            "name": "Canada Dry Seltzer's Choice",
+            "price": 7
+          },
+          "machine": 1,
+          "number": 1
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": true,
+          "item": {
+            "id": 67,
+            "name": "Saranac Shirley Temple",
+            "price": 10
+          },
+          "machine": 1,
+          "number": 2
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": false,
+          "item": {
+            "id": 66,
+            "name": "Stewarts Root Beer",
+            "price": 150
+          },
+          "machine": 1,
+          "number": 3
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": false,
+          "item": {
+            "id": 64,
+            "name": "Cream soda",
+            "price": 150
+          },
+          "machine": 1,
+          "number": 4
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": true,
+          "item": {
+            "id": 63,
+            "name": "Morning Brew's Choice 150mg (Recycle for 5 credits from Spencer)",
+            "price": 25
+          },
+          "machine": 1,
+          "number": 5
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": false,
+          "item": {
+            "id": 65,
+            "name": "Orange Cream Soda",
+            "price": 150
+          },
+          "machine": 1,
+          "number": 6
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": true,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 1,
+          "number": 7
+        }
+      ]
+    },
+    {
+      "display_name": "Little Drink",
+      "id": 2,
+      "is_online": true,
+      "name": "littledrink",
+      "slots": [
+        {
+          "active": true,
+          "count": null,
+          "empty": true,
+          "item": {
+            "id": 59,
+            "name": "Fresca",
+            "price": 50
+          },
+          "machine": 2,
+          "number": 1
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": true,
+          "item": {
+            "id": 12,
+            "name": "Sprite",
+            "price": 10
+          },
+          "machine": 2,
+          "number": 2
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": false,
+          "item": {
+            "id": 70,
+            "name": "Dr. Perky",
+            "price": 10
+          },
+          "machine": 2,
+          "number": 3
+        },
+        {
+          "active": true,
+          "count": null,
+          "empty": false,
+          "item": {
+            "id": 27,
+            "name": "Barq's Root Beer",
+            "price": 10
+          },
+          "machine": 2,
+          "number": 4
+        },
+        {
+          "active": false,
+          "count": null,
+          "empty": true,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 2,
+          "number": 5
+        }
+      ]
+    },
+    {
+      "display_name": "Snack",
+      "id": 3,
+      "is_online": true,
+      "name": "snack",
+      "slots": [
+        {
+          "active": false,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 3,
+          "number": 1
+        },
+        {
+          "active": false,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 3,
+          "number": 2
+        },
+        {
+          "active": false,
+          "count": null,
+          "empty": false,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 3,
+          "number": 3
+        },
+        {
+          "active": true,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 42,
+            "name": "Mandlebrot Shirt (S)",
+            "price": 1000
+          },
+          "machine": 3,
+          "number": 4
+        },
+        {
+          "active": true,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 43,
+            "name": "Mandlebrot Shirt (M)",
+            "price": 1000
+          },
+          "machine": 3,
+          "number": 5
+        },
+        {
+          "active": true,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 44,
+            "name": "Mandlebrot Shirt (L)",
+            "price": 1000
+          },
+          "machine": 3,
+          "number": 6
+        },
+        {
+          "active": true,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 58,
+            "name": "Big Texas",
+            "price": 50
+          },
+          "machine": 3,
+          "number": 7
+        },
+        {
+          "active": true,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 58,
+            "name": "Big Texas",
+            "price": 50
+          },
+          "machine": 3,
+          "number": 8
+        },
+        {
+          "active": true,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 56,
+            "name": "Shrimp Flavored Ramen",
+            "price": 50
+          },
+          "machine": 3,
+          "number": 9
+        },
+        {
+          "active": true,
+          "count": 46,
+          "empty": false,
+          "item": {
+            "id": 61,
+            "name": "Waste of drink credits",
+            "price": 1
+          },
+          "machine": 3,
+          "number": 10
+        },
+        {
+          "active": false,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 3,
+          "number": 11
+        },
+        {
+          "active": false,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 3,
+          "number": 12
+        },
+        {
+          "active": false,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 3,
+          "number": 13
+        },
+        {
+          "active": false,
+          "count": 0,
+          "empty": false,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 3,
+          "number": 14
+        },
+        {
+          "active": true,
+          "count": 29,
+          "empty": false,
+          "item": {
+            "id": 69,
+            "name": "Trojan Condom",
+            "price": 3
+          },
+          "machine": 3,
+          "number": 15
+        },
+        {
+          "active": true,
+          "count": 21,
+          "empty": false,
+          "item": {
+            "id": 68,
+            "name": "Rainbow Condom",
+            "price": 2
+          },
+          "machine": 3,
+          "number": 16
+        },
+        {
+          "active": true,
+          "count": 30,
+          "empty": false,
+          "item": {
+            "id": 69,
+            "name": "Trojan Condom",
+            "price": 3
+          },
+          "machine": 3,
+          "number": 17
+        },
+        {
+          "active": true,
+          "count": 28,
+          "empty": false,
+          "item": {
+            "id": 68,
+            "name": "Rainbow Condom",
+            "price": 2
+          },
+          "machine": 3,
+          "number": 18
+        },
+        {
+          "active": false,
+          "count": null,
+          "empty": false,
+          "item": {
+            "id": 15,
+            "name": "Empty",
+            "price": 99999
+          },
+          "machine": 3,
+          "number": 19
+        }
+      ]
+    }
+  ],
+  "message": "Successfully retrieved machine contents for bigdrink, littledrink, snack"
+}
+
