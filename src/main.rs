@@ -12,38 +12,39 @@ fn main() {
     let mut prev_response: Option<drink::Response> = None;
     let client = Client::new();
     loop {
-        let drink_response = client
-            .get(&drink_url)
-            .bearer_auth(&keycloak_token)
-            .send()
-            .unwrap();
-
-        if drink_response.status().is_success() {
-            let response_text = drink_response.text().unwrap();
-            let response: drink::Response = serde_json::from_str(&response_text).unwrap();
-            match prev_response {
-                Some(r) => {
-                    let changes = diff(&r, &response);
-                    match changes {
-                        Some(changes) => {
-                            for change in changes {
-                                println!("{}", change)
+        match client.get(&drink_url).bearer_auth(&keycloak_token).send() {
+            Ok(drink_response) => {
+                if drink_response.status().is_success() {
+                    let response_text = drink_response.text().unwrap();
+                    let response: drink::Response = serde_json::from_str(&response_text).unwrap();
+                    match prev_response {
+                        Some(r) => {
+                            let changes = diff(&r, &response);
+                            match changes {
+                                Some(changes) => {
+                                    for change in changes {
+                                        println!("{}", change)
+                                    }
+                                }
+                                None => {}
                             }
                         }
                         None => {}
                     }
+                    prev_response = Some(response);
+                } else {
+                    let response_status = drink_response.status();
+                    let response_text = drink_response.text().unwrap();
+                    let error = match serde_json::from_str::<Value>(&response_text) {
+                        Ok(v) => v["error"].as_str().unwrap().to_owned(),
+                        Err(_) => "error deserializing response".to_owned(),
+                    };
+                    println!("Whoops, drink returned a {} ({})", response_status, error);
                 }
-                None => {}
+            },
+            Err(err) => {
+                println!("{}", err);
             }
-            prev_response = Some(response);
-        } else {
-            let response_status = drink_response.status();
-            let response_text = drink_response.text().unwrap();
-            let error = match serde_json::from_str::<Value>(&response_text) {
-                Ok(v) => v["error"].as_str().unwrap().to_owned(),
-                Err(_) => "error deserializing response".to_owned(),
-            };
-            println!("Whoops, drink returned a {} ({})", response_status, error);
         }
 
         std::thread::sleep(std::time::Duration::from_secs(5))
@@ -58,18 +59,29 @@ fn diff(previous: &drink::Response, current: &drink::Response) -> Option<Vec<del
                 if ps.empty == true && cs.empty == false {
                     changes.push(delta::Change {
                         change_type: delta::ChangeType::SlotNowFull,
-                        machine: cm.clone(),
-                        slot: cs.clone(),
-                        item: cs.item.clone(),
+                        previous_machine: pm.clone(),
+                        previous_slot: ps.clone(),
+                        current_machine: cm.clone(),
+                        current_slot: cs.clone(),
                     })
                 } else {
                     changes.push(delta::Change {
                         change_type: delta::ChangeType::SlotNowEmpty,
-                        machine: cm.clone(),
-                        slot: cs.clone(),
-                        item: cs.item.clone(),
+                        previous_machine: pm.clone(),
+                        previous_slot: ps.clone(),
+                        current_machine: cm.clone(),
+                        current_slot: cs.clone(),
                     })
                 }
+            }
+            if ps.item.name != cs.item.name {
+                changes.push(delta::Change {
+                    change_type: delta::ChangeType::ItemNameChanged,
+                    previous_machine: pm.clone(),
+                    previous_slot: ps.clone(),
+                    current_machine: cm.clone(),
+                    current_slot: cs.clone(),
+                })
             }
         }
     }
