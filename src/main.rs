@@ -4,11 +4,13 @@ use std::env;
 mod delta;
 mod drink;
 mod oidc;
+mod slack;
 
 fn main() {
     dotenv::dotenv().ok();
     let drink_url =
         env::var("DRINK_URL").unwrap_or_else(|_| "https://drink.csh.rit.edu/drinks".to_owned());
+    let slack_uri = env::var("SLACK_WEBHOOK_URI").expect("SLACK_WEBHOOK_URI not set");
     let mut prev_response: Option<drink::Response> = None;
     let client = Client::new();
     loop {
@@ -32,9 +34,7 @@ fn main() {
                             if let Some(r) = prev_response {
                                 let changes = diff(&r, &response);
                                 if let Some(changes) = changes {
-                                    for change in changes {
-                                        println!("{}", change)
-                                    }
+                                    slack::send_changes(&slack_uri, &changes)
                                 }
                             }
                             prev_response = Some(response);
