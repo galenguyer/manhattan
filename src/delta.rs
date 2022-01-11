@@ -41,6 +41,17 @@ impl std::fmt::Display for Change {
                     self.current_slot.item.name
                 )
             }
+            ChangeType::ItemPriceChanged => {
+                write!(
+                    fmt,
+                    "{}: Slot {} ({}) price changed from {} to {}",
+                    self.current_machine.display_name,
+                    self.current_slot.number,
+                    self.current_slot.item.name,
+                    self.previous_slot.item.price,
+                    self.current_slot.item.price
+                )
+            }
         }
     }
 }
@@ -50,4 +61,5 @@ pub enum ChangeType {
     SlotNowEmpty,
     SlotNowFull,
     ItemNameChanged,
+    ItemPriceChanged,
 }

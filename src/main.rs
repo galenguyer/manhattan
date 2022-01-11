@@ -83,6 +83,15 @@ fn diff(previous: &drink::Response, current: &drink::Response) -> Option<Vec<del
                     current_slot: cs.clone(),
                 })
             }
+            if ps.item.price != cs.item.price {
+                changes.push(delta::Change {
+                    change_type: delta::ChangeType::ItemPriceChanged,
+                    previous_machine: pm.clone(),
+                    previous_slot: ps.clone(),
+                    current_machine: cm.clone(),
+                    current_slot: cs.clone(),
+                })
+            }
         }
     }
 
