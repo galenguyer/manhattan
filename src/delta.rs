@@ -44,7 +44,7 @@ impl std::fmt::Display for Change {
             ChangeType::ItemPriceChanged => {
                 write!(
                     fmt,
-                    "{}: Slot {} ({}) price changed from {} to {}",
+                    "{}: Slot {} ({}) price changed from {} to {} credits",
                     self.current_machine.display_name,
                     self.current_slot.number,
                     self.current_slot.item.name,

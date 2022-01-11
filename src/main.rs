@@ -41,7 +41,7 @@ fn main() {
                     };
                     println!("Whoops, drink returned a {} ({})", response_status, error);
                 }
-            },
+            }
             Err(err) => {
                 println!("{}", err);
             }
@@ -55,7 +55,9 @@ fn diff(previous: &drink::Response, current: &drink::Response) -> Option<Vec<del
     let mut changes: Vec<delta::Change> = vec![];
     for (pm, cm) in previous.machines.iter().zip(current.machines.iter()) {
         for (ps, cs) in pm.slots.iter().zip(cm.slots.iter()) {
+            // Slot emptiness changed
             if ps.empty != cs.empty {
+                // Slot was empty but isn't anymore
                 if ps.empty == true && cs.empty == false {
                     changes.push(delta::Change {
                         change_type: delta::ChangeType::SlotNowFull,
@@ -65,6 +67,7 @@ fn diff(previous: &drink::Response, current: &drink::Response) -> Option<Vec<del
                         current_slot: cs.clone(),
                     })
                 } else {
+                    // Slot wasn't empty but now is
                     changes.push(delta::Change {
                         change_type: delta::ChangeType::SlotNowEmpty,
                         previous_machine: pm.clone(),
@@ -74,6 +77,7 @@ fn diff(previous: &drink::Response, current: &drink::Response) -> Option<Vec<del
                     })
                 }
             }
+            // Item name changed
             if ps.item.name != cs.item.name {
                 changes.push(delta::Change {
                     change_type: delta::ChangeType::ItemNameChanged,
@@ -83,7 +87,8 @@ fn diff(previous: &drink::Response, current: &drink::Response) -> Option<Vec<del
                     current_slot: cs.clone(),
                 })
             }
-            if ps.item.price != cs.item.price {
+            // Item price (but not item) changed
+            if ps.item.price != cs.item.price && ps.item.id == cs.item.id {
                 changes.push(delta::Change {
                     change_type: delta::ChangeType::ItemPriceChanged,
                     previous_machine: pm.clone(),
