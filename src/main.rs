@@ -21,15 +21,13 @@ fn main() {
             let response_text = drink_response.text().unwrap();
             let response: drink::Response = serde_json::from_str(&response_text).unwrap();
             match prev_response {
-                Some(_) => {
-                    let machines = response.clone().machines;
-                    println!("{:?}", machines);
-                    prev_response = Some(response);
+                Some(r) => {
+                    let changes = diff(&r, &response);
+                    println!("{:?}", changes);
                 }
-                None => {
-                    prev_response = Some(response);
-                },
+                None => {}
             }
+            prev_response = Some(response);
         } else {
             let response_status = drink_response.status();
             let response_text = drink_response.text().unwrap();
@@ -42,4 +40,20 @@ fn main() {
 
         std::thread::sleep(std::time::Duration::from_secs(5))
     }
+}
+
+fn diff(previous: &drink::Response, current: &drink::Response) -> Vec<String> {
+    let mut changes: Vec<String> = vec![];
+    for (pm, cm) in previous.machines.iter().zip(current.machines.iter()) {
+        for (ps, cs) in pm.slots.iter().zip(cm.slots.iter()) {
+            if ps.empty != cs.empty {
+                if ps.empty == true && cs.empty == false {
+                    changes.push(format!("{}: Slot {} is no longer empty", cm.display_name, cs.number))
+                } else {
+                    changes.push(format!("{}: Slot {} is now empty", cm.display_name, cs.number))
+                }
+            }
+        }
+    }
+    return changes;
 }
