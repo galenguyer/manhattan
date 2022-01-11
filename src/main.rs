@@ -2,6 +2,7 @@ use dotenv;
 use reqwest::blocking::Client;
 use serde_json::Value;
 use std::env;
+mod delta;
 mod drink;
 
 fn main() {
@@ -23,7 +24,14 @@ fn main() {
             match prev_response {
                 Some(r) => {
                     let changes = diff(&r, &response);
-                    println!("{:?}", changes);
+                    match changes {
+                        Some(changes) => {
+                            for change in changes {
+                                println!("{}", change)
+                            }
+                        }
+                        None => {}
+                    }
                 }
                 None => {}
             }
@@ -42,18 +50,33 @@ fn main() {
     }
 }
 
-fn diff(previous: &drink::Response, current: &drink::Response) -> Vec<String> {
-    let mut changes: Vec<String> = vec![];
+fn diff(previous: &drink::Response, current: &drink::Response) -> Option<Vec<delta::Change>> {
+    let mut changes: Vec<delta::Change> = vec![];
     for (pm, cm) in previous.machines.iter().zip(current.machines.iter()) {
         for (ps, cs) in pm.slots.iter().zip(cm.slots.iter()) {
             if ps.empty != cs.empty {
                 if ps.empty == true && cs.empty == false {
-                    changes.push(format!("{}: Slot {} is no longer empty", cm.display_name, cs.number))
+                    changes.push(delta::Change {
+                        change_type: delta::ChangeType::SlotNowFull,
+                        machine: cm.clone(),
+                        slot: cs.clone(),
+                        item: cs.item.clone(),
+                    })
                 } else {
-                    changes.push(format!("{}: Slot {} is now empty", cm.display_name, cs.number))
+                    changes.push(delta::Change {
+                        change_type: delta::ChangeType::SlotNowEmpty,
+                        machine: cm.clone(),
+                        slot: cs.clone(),
+                        item: cs.item.clone(),
+                    })
                 }
             }
         }
     }
-    return changes;
+
+    if changes.len() > 0 {
+        return Some(changes);
+    } else {
+        return None;
+    }
 }
