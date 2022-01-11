@@ -41,9 +41,6 @@ impl std::fmt::Display for Change {
                     self.current_slot.item.name
                 )
             }
-            _ => {
-                write!(fmt, "Unknown Change")
-            }
         }
     }
 }
