@@ -25,6 +25,8 @@ fn main() {
             &env::var("OIDC_CLIENT_SECRET").expect("OIDC_CLIENT_SECRET not set"),
         ) {
             Ok(keycloak_token) => {
+                let _ = client.get(&drink_url).bearer_auth(&keycloak_token).send();
+                std::thread::sleep(std::time::Duration::from_secs(5));
                 match client.get(&drink_url).bearer_auth(&keycloak_token).send() {
                     Ok(drink_response) => {
                         if drink_response.status().is_success() {
