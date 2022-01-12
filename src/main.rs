@@ -19,7 +19,7 @@ fn main() {
         // just fetch a new one each time
         match oidc::get_token(
             &env::var("OIDC_URI").unwrap_or_else(|_| {
-                "https://sso.cah.rit.edu/auth/realms/csh/protocol/openid-connect/token".to_owned()
+                "https://sso.csh.rit.edu/auth/realms/csh/protocol/openid-connect/token".to_owned()
             }),
             &env::var("OIDC_CLIENT_ID").unwrap_or_else(|_| "manhattan".to_owned()),
             &env::var("OIDC_CLIENT_SECRET").expect("OIDC_CLIENT_SECRET not set"),
