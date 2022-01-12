@@ -35,7 +35,11 @@ fn main() {
                                 let changes = diff(&r, &response);
                                 if let Some(changes) = changes {
                                     slack::send_changes(&slack_uri, &changes)
+                                } else {
+                                    println!("No changes detected")
                                 }
+                            } else {
+                                println!("Fetched initial state");
                             }
                             prev_response = Some(response);
                         } else {
