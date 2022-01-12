@@ -4,8 +4,6 @@ WORKDIR /src/manhattan
 COPY ./ ./
 RUN cargo build --release
 
-ENTRYPOINT ["/bin/bash"]
-
 FROM gcr.io/distroless/cc
 COPY --from=builder /src/manhattan/target/release/manhattan /
 ENTRYPOINT ["/manhattan"]
