@@ -69,6 +69,9 @@ fn main() {
 fn diff(previous: &drink::Response, current: &drink::Response) -> Option<Vec<delta::Change>> {
     let mut changes: Vec<delta::Change> = vec![];
     for (pm, cm) in previous.machines.iter().zip(current.machines.iter()) {
+        if pm.is_online != cm.is_online {
+            continue
+        }
         for (ps, cs) in pm.slots.iter().zip(cm.slots.iter()) {
             // Slot emptiness changed
             if ps.empty != cs.empty {
